@@ -37,6 +37,21 @@
 			<property name="paramName" value="lang" />
 		</bean>
 	</mvc:interceptors>
+
+	<!-- 예외 처리 설정 -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.ArithmaticException">
+					/common/error1.jsp
+				</prop>
+				<prop key="java.lang.NullPointerException">
+					/common/error2.jsp
+				</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="/common/error.jsp"></property>
+	</bean>
 </beans>
 
 

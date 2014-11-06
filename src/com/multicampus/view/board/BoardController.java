@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,11 @@ public class BoardController {
 	
 	// 글 등록
 	@RequestMapping("/insertBoard.do")
-	public String insertBoard(BoardVO vo) throws IOException {
+	public String insertBoard(BoardVO vo, BindingResult errors) throws IOException {
+		new BoardValidator().validate(vo, errors);
+		if (errors.hasErrors()) {
+			return "insertBoard.jsp";
+		}
 		// 파일 업로드 구현 
 		MultipartFile uploadFile = vo.getUploadFile();
 		if (uploadFile.getOriginalFilename().length() > 0) {
