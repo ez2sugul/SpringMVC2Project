@@ -22,7 +22,7 @@
 <!-- 검색 시작 -->
 <form action="getBoardList.do" method="post">
 	<table border="1" cellpadding="0" cellspacing="0" width="700">
-	<tr>
+	<tr>0
 		<td align="right">
 			<select name="searchCondition">
 			<option value="TITLE">제목
