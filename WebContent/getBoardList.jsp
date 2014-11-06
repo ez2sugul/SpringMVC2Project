@@ -15,6 +15,7 @@
 <body>
 <center>
 <h1>글 목록</h1>
+<h3>${userName} 님 로그인 환영합니다.</h3>
 <h3>test님 로그인 환영합니다......
 <a href="logout.do">Log-out</a></h3>
 

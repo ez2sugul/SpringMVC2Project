@@ -8,7 +8,7 @@
 <center>
 	<h3>새글 등록하기............<a href='logout.do'>LOG-OUT</a></h3>
 	<hr>
-		<form action="insertBoard.do" method="post">
+		<form action="insertBoard.do" method="post" enctype="multipart/form-data">
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>제목</td><td align="left">

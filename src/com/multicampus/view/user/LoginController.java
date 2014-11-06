@@ -1,39 +1,37 @@
 package com.multicampus.view.user;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.multicampus.biz.user.UserService;
 import com.multicampus.biz.user.UserVO;
-import com.multicampus.biz.user.impl.UserDAO;
 
-public class LoginController implements Controller {
-
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) {
-		// 1. 사용자 입력정보(id, password) 추출
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		
-		// 2. DB 연동
-		UserVO vo = new UserVO();
-		vo.setId(id);
-		vo.setPassword(password);
-		
-		UserDAO userDAO = new UserDAO();
-		UserVO user = userDAO.getUser(vo);
-		
-		// 3. 화면 이동
-		ModelAndView mav = new ModelAndView();
+@Controller
+public class LoginController {
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
+	public String loginView(@ModelAttribute("user") UserVO vo) {
+		vo.setId("test");
+		vo.setPassword("test");
+		return "login.jsp";
+	}
+	
+	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+	public String login(UserVO vo, HttpSession session) {	
+		UserVO user = userService.getUser(vo);
 		if(user != null) {
-			mav.setViewName("redirect:getBoardList.do");
-		} else {
-			mav.setViewName("login");
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+			return "getBoardList.do";
 		}
-		return mav;
+		else return "login.jsp";
 	}
 
 }
