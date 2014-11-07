@@ -13,7 +13,7 @@ import com.multicampus.biz.board.BoardVO;
 public class BoardDAOiBatis {
 	@Autowired
 	private SqlMapClientTemplate ibatis;
-	
+
 	// ±Û µî·Ï
 	public void insertBoard(BoardVO vo){
 		ibatis.insert("insertBoard", vo);

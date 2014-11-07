@@ -1,6 +1,5 @@
 package com.multicampus.view.board;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,20 +21,21 @@ public class BoardController {
 	
 	// 글 등록
 	@RequestMapping("/insertBoard.do")
-	public String insertBoard(BoardVO vo, BindingResult errors) throws IOException {
+	public String insertBoard(@ModelAttribute("board") BoardVO vo, BindingResult errors) throws IOException {
+		// 유효성 체크 구현
 		new BoardValidator().validate(vo, errors);
-		if (errors.hasErrors()) {
-			return "insertBoard.jsp";
-		}
-		// 파일 업로드 구현 
+		if(errors.hasErrors()) return "insertBoard.jsp";
+		
+		// 파일 업로드 구현
 		MultipartFile uploadFile = vo.getUploadFile();
-		if (uploadFile.getOriginalFilename().length() > 0) {
+		if(uploadFile.getOriginalFilename().length() > 0) {
 			String fileName = uploadFile.getOriginalFilename();
 			byte[] data = uploadFile.getBytes();
-			FileOutputStream out = new FileOutputStream("C:/DEV/workspace/SpringMVC2Project/WebContent/uploadFiles/" + fileName);
+			FileOutputStream out = new FileOutputStream("C:/DEV/workspace/SpringMVC2Project/WebContent/uploadFiles/" + fileName); 
 			out.write(data);
 			out.close();
 		}
+		
 		boardService.insertBoard(vo);		
 		return "getBoardList.do";
 	}
@@ -69,3 +70,10 @@ public class BoardController {
 		return "getBoardList.jsp";       // View  정보 저장
 	}
 }
+
+
+
+
+
+
+

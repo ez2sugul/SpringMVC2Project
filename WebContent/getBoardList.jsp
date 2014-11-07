@@ -15,15 +15,14 @@
 </head>
 <body>
 <center>
-<h1><spring:message code="message.board.list.mainTitle"></spring:message></h1>
-<h3>${userName} 님 로그인 환영합니다.</h3>
-<h3>test님 로그인 환영합니다......
+<h1><spring:message code="message.board.list.mainTitle"/></h1>
+<h3>${userName }님 로그인 환영합니다......
 <a href="logout.do">Log-out</a></h3>
 
 <!-- 검색 시작 -->
 <form action="getBoardList.do" method="post">
 	<table border="1" cellpadding="0" cellspacing="0" width="700">
-	<tr>0
+	<tr>
 		<td align="right">
 			<select name="searchCondition">
 			<option value="TITLE">제목
