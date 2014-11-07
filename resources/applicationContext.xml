@@ -26,6 +26,18 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	
+	<!-- Spring과 iBatis 연동 설정 -->
+	<!-- 1. SqlMapClientFactoryBean 등록 -->
+	<bean id="sqlMapClient" class="com.ibatis.sqlmap.client.SqlMapClient">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:sql-map-config.xml"></property>
+	</bean>
+
+	<!-- 2. SqlMapClientTemplate 등록 -->
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
 
 	<!-- Transaction 설정 -->
 	<!-- 1. TransactionManager 등록 -->
