@@ -1,6 +1,13 @@
 package com.multicampus.biz.user;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="USERS")
 public class UserVO {
+	@Id
 	private String id;
 	private String password;
 	private String name;
